@@ -1,7 +1,3 @@
-# knxd
-KNXD Dockerfile.
-
-
 ## KNXD Dockerfile
 
 
