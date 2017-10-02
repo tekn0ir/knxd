@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:buster
 
 MAINTAINER Anders Åslund <anders.aslund@teknoir.se>
 
