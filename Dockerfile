@@ -1,11 +1,11 @@
-FROM debian:stretch
+FROM debian:jessie
 
 MAINTAINER Anders Åslund <anders.aslund@teknoir.se>
 
 # Update packages
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -y git-core cmake build-essential wget debhelper cdbs autoconf automake libtool libusb-1.0-0 libusb-1.0-0-dev pkg-config libsystemd-dev dh-systemd init-system-helpers libev-dev libfmt3-dev && \
+  apt-get install -y git-core cmake build-essential wget debhelper cdbs autoconf automake libtool libusb-1.0-0 libusb-1.0-0-dev pkg-config libsystemd-dev dh-systemd init-system-helpers libev-dev libsystemd-dev libsystemd-daemon-dev && \
   apt-get clean -y && \
   apt-get autoclean -y && \
   apt-get autoremove
@@ -26,7 +26,7 @@ RUN dpkg -i libpthsem*.deb
 
 # now build+install knxd itself
 WORKDIR /root/knxd
-RUN sleep 1
+RUN git checkout master
 RUN dpkg-buildpackage -b -uc
 WORKDIR /root
 RUN sleep 1
@@ -51,4 +51,4 @@ EXPOSE ${LISTEN_TCP}
 
 USER knxd
 
-CMD knxd --eibaddr=${EIBADDR} -u /tmp/eib -D -T -R -S --listen-tcp=${LISTEN_TCP} iptn:${IPTN}
+CMD knxd --error=DEBUG --eibaddr=${EIBADDR} -u /tmp/eib -D -T -R -S --listen-tcp=${LISTEN_TCP} iptn:${IPTN}
