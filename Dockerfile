@@ -43,12 +43,7 @@ RUN rm /root/*.deb && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /usr/share/doc/*
 
-ENV EIBADDR 1.1.128
-ENV LISTEN_TCP 6720
-ENV IPTN 10.0.1.6
-
-EXPOSE ${LISTEN_TCP}
+ADD config.ini /config.ini
 
 USER knxd
-
-CMD knxd --error=DEBUG --eibaddr=${EIBADDR} -u /tmp/eib -D -T -R -S --listen-tcp=${LISTEN_TCP} iptn:${IPTN}
+ENTRYPOINT ["knxd"]

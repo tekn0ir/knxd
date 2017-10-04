@@ -19,4 +19,6 @@ This repository contains **Dockerfile** of KNXD
 
 ### Usage
 
-    docker run -d -p 0.0.0.0:6720:6720 -e "EIBADDR=1.1.128" -e "LISTEN_TCP=6720" -e "IPTN=10.0.1.6" tekn0ir/knxd
+    docker run -d -p 0.0.0.0:6720:6720 -v /path/to/config.ini:/another/path/to/config.ini tekn0ir/knxd /another/path/to/config.ini
+
+[config documentantion] (https://github.com/knxd/knxd/blob/master/doc/inifile.rst)
