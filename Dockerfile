@@ -45,5 +45,15 @@ RUN rm /root/*.deb && \
 
 ADD config.ini /config.ini
 
-USER knxd
-ENTRYPOINT ["knxd"]
+ENV GOSU_NAME docker
+
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh  \
+    && sed -i -e 's/\r$//' /entrypoint.sh
+
+COPY cmd.sh /
+RUN chmod +x /cmd.sh  \
+    && sed -i -e 's/\r$//' /cmd.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/cmd.sh"]
