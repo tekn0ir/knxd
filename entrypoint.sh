@@ -9,4 +9,4 @@ USER_ID=${USER_ID:-9001}
 DOCKER_GID=${DOCKER_GID:-9002}
 USER_NAME=$GOSU_NAME
 
-exec gosu $USER_ID:$DOCKER_GID "$@"
+exec /usr/local/bin/gosu $USER_ID:$DOCKER_GID "$@"
