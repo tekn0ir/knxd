@@ -5,7 +5,7 @@ MAINTAINER Anders Åslund <anders.aslund@teknoir.se>
 # Update packages
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -y git-core cmake build-essential wget debhelper cdbs autoconf automake libtool libusb-1.0-0 libusb-1.0-0-dev pkg-config libsystemd-dev dh-systemd init-system-helpers libev-dev libsystemd-dev libsystemd-daemon-dev && \
+  apt-get install -y git-core cmake build-essential wget debhelper cdbs autoconf automake libtool libusb-1.0-0 libusb-1.0-0-dev pkg-config libsystemd-dev dh-systemd init-system-helpers libev-dev libsystemd-dev libsystemd-daemon-dev gosu && \
   apt-get clean -y && \
   apt-get autoclean -y && \
   apt-get autoremove
