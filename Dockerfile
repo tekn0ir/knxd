@@ -5,10 +5,14 @@ MAINTAINER Anders Åslund <anders.aslund@teknoir.se>
 # Update packages
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -y git-core cmake build-essential wget debhelper cdbs autoconf automake libtool libusb-1.0-0 libusb-1.0-0-dev pkg-config libsystemd-dev dh-systemd init-system-helpers libev-dev libsystemd-dev libsystemd-daemon-dev gosu && \
+  apt-get install -y git-core cmake build-essential wget curl debhelper cdbs autoconf automake libtool libusb-1.0-0 libusb-1.0-0-dev pkg-config libsystemd-dev dh-systemd init-system-helpers libev-dev libsystemd-dev libsystemd-daemon-dev && \
   apt-get clean -y && \
   apt-get autoclean -y && \
   apt-get autoremove
+
+RUN curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64" && \
+	echo "6f3a72f474cafacb3c7b4a7397a1f37d82fcc27b596cbb66e4ea0a8ee92eee76  /usr/local/bin/gosu" | sha256sum -c && \
+	chmod +x /usr/local/bin/gosu
 
 # and get the source code
 WORKDIR /root
