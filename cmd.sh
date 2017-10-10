@@ -2,4 +2,4 @@
 set -xe
 
 export HOME=/home/$GOSU_NAME
-knxd
+knxd /config.ini
