@@ -1,6 +1,5 @@
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
-# FROM debian:jessie
 
 MAINTAINER Anders Åslund <anders.aslund@teknoir.se>
 
@@ -43,10 +42,8 @@ RUN git clone https://github.com/knxd/knxd.git
 COPY pthsem_2.0.8.tar.gz /root/pthsem_2.0.8.tar.gz
 RUN tar xzf pthsem_2.0.8.tar.gz
 WORKDIR /root/pthsem-2.0.8
-RUN sleep 1
 RUN dpkg-buildpackage -b -uc
 WORKDIR /root
-RUN sleep 1
 RUN dpkg -i libpthsem*.deb
 
 # now build+install knxd itself
@@ -54,8 +51,6 @@ WORKDIR /root/knxd
 RUN git checkout master
 RUN dpkg-buildpackage -b -uc
 WORKDIR /root
-RUN sleep 1
-RUN echo HIER
 RUN dpkg -i knxd_*.deb knxd-tools_*.deb
 
 # clean up
