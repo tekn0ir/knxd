@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 MAINTAINER Anders Åslund <anders.aslund@teknoir.se>
@@ -30,13 +30,13 @@ RUN apt-get update \
  && apt-get autoclean -y \
  && apt-get autoremove
 
-RUN curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64" && \
-	echo "6f3a72f474cafacb3c7b4a7397a1f37d82fcc27b596cbb66e4ea0a8ee92eee76  /usr/local/bin/gosu" | sha256sum -c && \
+RUN curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64" && \
+	echo "0f25a21cf64e58078057adc78f38705163c1d564a959ff30a891c31917011a54 /usr/local/bin/gosu" | sha256sum -c && \
 	chmod +x /usr/local/bin/gosu
 
 # and get the source code
 WORKDIR /root
-RUN git clone https://github.com/knxd/knxd.git
+RUN git clone https://github.com/knxd/knxd.git --single-branch --branch debian
 
 # knxd requires libpthsem which unfortunately isn't part of Debian
 COPY pthsem_2.0.8.tar.gz /root/pthsem_2.0.8.tar.gz
@@ -48,7 +48,6 @@ RUN dpkg -i libpthsem*.deb
 
 # now build+install knxd itself
 WORKDIR /root/knxd
-RUN git checkout master
 RUN dpkg-buildpackage -b -uc
 WORKDIR /root
 RUN dpkg -i knxd_*.deb knxd-tools_*.deb
